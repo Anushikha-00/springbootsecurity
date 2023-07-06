@@ -6,7 +6,7 @@ It is built using the Spring Boot framework and utilizes the H2 database for sto
 
 Installation
 Clone the repository:
-  git clone [https://github.com/your-username/project-name.git](https://github.com/Anushikha-00/springbootsecurity.git)
+  git clone https://github.com/Anushikha-00/springbootsecurity.git
 Navigate to the project directory:
   cd project-name
 Build the project using Maven:
