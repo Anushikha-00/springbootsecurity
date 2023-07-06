@@ -68,7 +68,7 @@ extractUsername(String token): Extracts the username from a JWT token.
 validateToken(String token, UserDetails userDetails): Validates the provided JWT token.
 
 API Documentation
-The API documentation is generated using Swagger and can be accessed at http://localhost:8080/swagger-ui.html. It provides detailed information about each API endpoint, including the request and response structures, as well as the authentication requirements.
+The API documentation is generated using Postman It provides detailed information about each API endpoint, including the request and response structures, as well as the authentication requirements.
 
 
 
