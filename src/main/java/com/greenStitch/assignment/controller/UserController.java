@@ -4,12 +4,18 @@ import com.greenStitch.assignment.dto.AuthenticationRequest;
 import com.greenStitch.assignment.dto.AuthenticationResponse;
 import com.greenStitch.assignment.entity.User;
 import com.greenStitch.assignment.repository.UserRepository;
-import com.greenStitch.assignment.service.impl.UserDetailsServiceImpl;
 import com.greenStitch.assignment.security.JwtTokenUtil;
+import com.greenStitch.assignment.services.UserDetailsServiceImpl;
+
+import io.jsonwebtoken.security.InvalidKeyException;
+
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,12 +31,12 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authenticationManager;
+    private final DaoAuthenticationProvider authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserController(UserRepository userRepository, UserDetailsServiceImpl userDetailsService,
-                          JwtTokenUtil jwtTokenUtil, AuthenticationManager authenticationManager,
+                          JwtTokenUtil jwtTokenUtil, DaoAuthenticationProvider authenticationManager,
                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userDetailsService = userDetailsService;
@@ -56,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws InvalidKeyException, NoSuchAlgorithmException {
         try {
             // Perform authentication
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
